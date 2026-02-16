@@ -13,12 +13,12 @@ using Graphs
 using Network
 
 # Core types
-export DynamicNetwork, Spell, ActivitySpell
+export DynamicNetwork, Spell, TimeVaryingAttribute, ActivitySpell
 export VertexSpell, EdgeSpell
 
 # Spell operations
 export add_spell!, remove_spell!, get_spells, merge_spells!
-export is_active, get_activity_range, spell_overlap
+export is_active, get_activity_range, spell_overlap, spell_duration
 export activate!, deactivate!, activate_vertices!, activate_edges!
 
 # Network extraction
@@ -64,8 +64,7 @@ struct Spell{T}
     end
 end
 
-# Convenience constructors
-Spell(onset::T, terminus::T) where T = Spell(onset, terminus; onset_censored=false, terminus_censored=false)
+# Convenience constructor for mixed numeric types
 Spell(onset::Real, terminus::Real) = Spell(Float64(onset), Float64(terminus))
 
 # Spell utilities
